@@ -1,9 +1,8 @@
 import io
 import os
-import requests
 import pandas as pd
-import pyarrow
 from google.cloud import storage
+from security import safe_requests
 
 """
 Pre-reqs: 
@@ -45,7 +44,7 @@ def web_to_gcs(year, service):
 
         # download it using requests via a pandas df
         request_url = init_url + file_name
-        r = requests.get(request_url)
+        r = safe_requests.get(request_url)
         pd.DataFrame(io.StringIO(r.text)).to_csv(file_name)
         print(f"Local: {file_name}")
 
