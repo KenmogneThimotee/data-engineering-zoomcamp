@@ -45,7 +45,7 @@ def web_to_gcs(year, service):
 
         # download it using requests via a pandas df
         request_url = init_url + file_name
-        r = requests.get(request_url)
+        r = requests.get(request_url, timeout=60)
         pd.DataFrame(io.StringIO(r.text)).to_csv(file_name)
         print(f"Local: {file_name}")
 
